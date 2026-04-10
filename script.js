@@ -1,12 +1,67 @@
-//You can edit ALL of the code here
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+// You can edit ALL of the code here
+
+function formatEpisodeCode(season, episodeNumber) {
+  const formattedSeason = String(season).padStart(2, "0");
+  const formattedEpisodeNumber = String(episodeNumber).padStart(2, "0");
+  return `S${formattedSeason}E${formattedEpisodeNumber}`;
+}
+
+function createEpisodeCard(episode) {
+  const episodeCard = document.createElement("article");
+  episodeCard.className = "episode-card";
+
+  const episodeTitle = document.createElement("h2");
+  episodeTitle.className = "episode-title";
+  episodeTitle.textContent = episode.name;
+
+  const episodeDetails = document.createElement("p");
+  episodeDetails.className = "episode-details";
+  episodeDetails.textContent = `Season ${episode.season}, Episode ${episode.number} (${formatEpisodeCode(
+    episode.season,
+    episode.number
+  )})`;
+
+  const episodeImage = document.createElement("img");
+  episodeImage.className = "episode-image";
+  episodeImage.src = episode.image.medium;
+  episodeImage.alt = episode.name;
+
+  const episodeSummary = document.createElement("div");
+  episodeSummary.className = "episode-summary";
+  episodeSummary.innerHTML = episode.summary;
+
+  const episodeLink = document.createElement("a");
+  episodeLink.className = "episode-link";
+  episodeLink.href = episode.url;
+  episodeLink.target = "_blank";
+  episodeLink.rel = "noopener noreferrer";
+  episodeLink.textContent = "View this episode on TVMaze";
+
+  episodeCard.appendChild(episodeTitle);
+  episodeCard.appendChild(episodeDetails);
+  episodeCard.appendChild(episodeImage);
+  episodeCard.appendChild(episodeSummary);
+  episodeCard.appendChild(episodeLink);
+
+  return episodeCard;
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  const episodeCountElem = document.getElementById("episode-count");
+
+  rootElem.innerHTML = "";
+  episodeCountElem.textContent = `Displaying ${episodeList.length} episode(s)`;
+
+  episodeList.forEach(function (episode) {
+    const episodeCard = createEpisodeCard(episode);
+    rootElem.appendChild(episodeCard);
+  });
+}
+
+function setup() {
+  const allEpisodes = getAllEpisodes();
+  makePageForEpisodes(allEpisodes);
 }
 
 window.onload = setup;
