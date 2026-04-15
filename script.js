@@ -1,5 +1,7 @@
 // You can edit ALL of the code here
 
+let allEpisodes = [];
+
 function formatEpisodeCode(season, episodeNumber) {
   const formattedSeason = String(season).padStart(2, "0");
   const formattedEpisodeNumber = String(episodeNumber).padStart(2, "0");
@@ -23,7 +25,7 @@ function createEpisodeCard(episode) {
 
   const episodeImage = document.createElement("img");
   episodeImage.className = "episode-image";
-  episodeImage.src = episode.image.medium;
+  episodeImage.src = episode.image?.medium || "";
   episodeImage.alt = episode.name;
 
   const episodeSummary = document.createElement("div");
@@ -59,9 +61,42 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+function showLoadingMessage() {
+  const rootElem = document.getElementById("root");
+  const episodeCountElem = document.getElementById("episode-count");
+
+  rootElem.innerHTML = "<p>Loading episodes, please wait...</p>";
+  episodeCountElem.textContent = "";
+}
+
+function showErrorMessage() {
+  const rootElem = document.getElementById("root");
+  const episodeCountElem = document.getElementById("episode-count");
+
+  rootElem.innerHTML =
+    "<p>Sorry, we could not load the episode data right now.</p>";
+  episodeCountElem.textContent = "";
+}
+
+async function fetchEpisodes() {
+  const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function setup() {
+  showLoadingMessage();
+
+  try {
+    allEpisodes = await fetchEpisodes();
+    makePageForEpisodes(allEpisodes);
+  } catch (error) {
+    showErrorMessage();
+  }
 }
 
 window.onload = setup;
