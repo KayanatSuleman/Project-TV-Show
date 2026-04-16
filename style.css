@@ -19,19 +19,45 @@ body {
   margin-bottom: 0.5rem;
 }
 
-#episode-count {
+#episode-count,
+#show-count {
   color: red;
   font-weight: bold;
-  margin: 0;
+  margin: 0.5rem 0 0;
 }
 
-#root {
+.controls {
+  padding: 1rem 1.5rem 0;
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+
+.controls input,
+.controls select,
+.controls button {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+#shows-root,
+#episodes-root {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem;
 }
 
+.show-card,
 .episode-card {
   background-color: white;
   border: 1px solid #dcdcdc;
@@ -41,12 +67,24 @@ body {
   padding-bottom: 1rem;
 }
 
+.show-title,
 .episode-title {
   font-size: 1.2rem;
   margin: 0;
   padding: 1rem 1rem 0.5rem;
 }
 
+.show-title button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #0056b3;
+  cursor: pointer;
+  text-align: left;
+}
+
+.show-meta,
 .episode-details {
   margin: 0;
   padding: 0 1rem 1rem;
@@ -54,17 +92,20 @@ body {
   color: #555;
 }
 
+.show-image,
 .episode-image {
   display: block;
   width: 100%;
   height: auto;
 }
 
+.show-summary,
 .episode-summary {
   padding: 1rem;
   line-height: 1.5;
 }
 
+.show-link,
 .episode-link {
   display: inline-block;
   margin: 0 1rem;

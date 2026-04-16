@@ -15,13 +15,47 @@
     </header>
 
     <main>
-    <div id="root"></div>
+      <section id="shows-view">
+        <div class="controls">
+          <label for="show-search">Search shows:</label>
+          <input
+            type="text"
+            id="show-search"
+            placeholder="Search by show name, genre, or summary"
+          />
+          <p id="show-count"></p>
+        </div>
+
+        <div id="shows-root"></div>
+      </section>
+
+      <section id="episodes-view" class="hidden">
+        <div class="controls">
+          <button id="back-button" type="button">Back to shows</button>
+
+          <label for="episode-search">Search episodes:</label>
+          <input
+            type="text"
+            id="episode-search"
+            placeholder="Search by episode name or summary"
+          />
+
+          <label for="episode-select">Choose an episode:</label>
+          <select id="episode-select">
+            <option value="all">All Episodes</option>
+          </select>
+        </div>
+
+        <div id="episodes-root"></div>
+      </section>
     </main>
- 
+
     <footer class="page-footer">
       <p>
         Data originally from
-        <a href="https://tvmaze.com/" target="_blank" rel="noopener noreferrer">TVMaze.com</a>
+        <a href="https://tvmaze.com/" target="_blank" rel="noopener noreferrer"
+          >TVMaze.com</a
+        >
       </p>
     </footer>
 
