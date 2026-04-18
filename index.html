@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Kayanat Suleman (KayanatSuleman)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <header class="page-header">
-      <h1>TV Show Project | Kayanat Suleman (KayanatSuleman)</h1>
-      <p id="episode-count"></p>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project - Ayo Level 400</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
 
-    <main>
+<body>
+  <header class="page-header">
+    <h1>TV Show Project | Level 400</h1>
+    <p id="episode-count"></p>
+  </header>
+
+  <div id="search-container" style="padding: 20px; text-align: center;">
+    <select id="show-selector" style="padding: 10px; border-radius: 5px; margin-right: 10px;">
+      <option value="">Select a show...</option>
+    </select>
+
+    <input type="text" id="episode-search-input" placeholder="Search episodes..."
+      style="padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">
+
+    <p id="search-count-display" style="margin-top: 10px; font-weight: bold;"></p>
+  </div>
+
+  <main>
     <div id="root"></div>
-    </main>
- 
-    <footer class="page-footer">
-      <p>
-        Data originally from
-        <a href="https://tvmaze.com/" target="_blank" rel="noopener noreferrer">TVMaze.com</a>
-      </p>
-    </footer>
+  </main>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+  <script src="script.js"></script>
+</body>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
 </html>
