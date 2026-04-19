@@ -35,8 +35,6 @@ function populateShowSelector(showList) {
   });
 }
 
-/* --------------------------------------------------- */
-
 function createShowCard(show) {
   const showCard = document.createElement("article");
   showCard.className = "show-card";
@@ -263,9 +261,18 @@ async function openShowEpisodes(show) {
   currentShow = show;
   showEpisodesView();
 
+  const showSelector = document.getElementById("show-selector");
+  if (showSelector) {
+    showSelector.value = String(show.id);
+  }
+
   document.getElementById("episode-search").value = "";
   document.getElementById("episode-select").innerHTML =
     '<option value="all">All Episodes</option>';
+
+  document.getElementById("episodes-root").innerHTML =
+    "<p>Loading episodes...</p>";
+  document.getElementById("episode-count").textContent = "";
 
   try {
     allEpisodes = await fetchEpisodesByShowId(show.id);
@@ -277,7 +284,6 @@ async function openShowEpisodes(show) {
     document.getElementById("episode-count").textContent = "";
   }
 }
-
 async function setup() {
   document
     .getElementById("show-search")
@@ -295,7 +301,7 @@ async function setup() {
     .getElementById("back-button")
     .addEventListener("click", showShowsView);
 
-  /* NEW: show selector listener */
+
   const showSelector = document.getElementById("show-selector");
   if (showSelector) {
     showSelector.addEventListener("change", function (event) {
@@ -310,12 +316,11 @@ async function setup() {
   }
 
   try {
-    /* UPDATED: sorted shows */
     allShows = (await fetchShows()).slice().sort(function (a, b) {
       return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
     });
 
-    populateShowSelector(allShows); // NEW
+    populateShowSelector(allShows); 
     renderShows(allShows);
     showShowsView();
   } catch (error) {
