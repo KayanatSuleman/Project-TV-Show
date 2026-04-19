@@ -19,7 +19,6 @@ function stripHtmlTags(htmlString) {
   return tempEl.textContent || "";
 }
 
-/* ---------------- NEW: Show Selector ---------------- */
 function populateShowSelector(showList) {
   const showSelector = document.getElementById("show-selector");
 
