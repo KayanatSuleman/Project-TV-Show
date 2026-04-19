@@ -19,6 +19,24 @@ function stripHtmlTags(htmlString) {
   return tempEl.textContent || "";
 }
 
+/* ---------------- NEW: Show Selector ---------------- */
+function populateShowSelector(showList) {
+  const showSelector = document.getElementById("show-selector");
+
+  if (!showSelector) return;
+
+  showSelector.innerHTML = "";
+
+  showList.forEach(function (show) {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelector.appendChild(option);
+  });
+}
+
+/* --------------------------------------------------- */
+
 function createShowCard(show) {
   const showCard = document.createElement("article");
   showCard.className = "show-card";
@@ -277,8 +295,27 @@ async function setup() {
     .getElementById("back-button")
     .addEventListener("click", showShowsView);
 
+  /* NEW: show selector listener */
+  const showSelector = document.getElementById("show-selector");
+  if (showSelector) {
+    showSelector.addEventListener("change", function (event) {
+      const selectedShow = allShows.find(function (show) {
+        return show.id === Number(event.target.value);
+      });
+
+      if (selectedShow) {
+        openShowEpisodes(selectedShow);
+      }
+    });
+  }
+
   try {
-    allShows = await fetchShows();
+    /* UPDATED: sorted shows */
+    allShows = (await fetchShows()).slice().sort(function (a, b) {
+      return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+    });
+
+    populateShowSelector(allShows); // NEW
     renderShows(allShows);
     showShowsView();
   } catch (error) {
